@@ -9,13 +9,13 @@ Feel free to contact me with any questions.
 
   * Install jQuery timePicker (http://github.com/perifer/timePicker) somewhere under your web folder (preferably under web/js).
 
-  * Add the jQuery, timePicker, jQuery-UI and Datejs JavaScript files to the javascripts list in your application's config/view.yml file.
-
   * Install jQuery-UI (http://www.jqueryui.com) somewhere under your web folder (preferably under web/js).
 
   * Install Datejs (http://www.datejs.com) somewhere under your web folder (preferably under web/js).
 
-  * Add any CSS files you want to use for timePicker and datePicker, and add them to the stylesheets list in view.yml.
+  * Add the jQuery, timePicker, jQuery-UI and Datejs JavaScript files to the javascripts list in your application's config/view.yml file.
+  
+* Add any CSS files you want to use for timePicker and datePicker, and add them to the stylesheets list in view.yml.
 
   * Install the plugin.
       Using symfony command line:
@@ -82,23 +82,23 @@ Feel free to contact me with any questions.
 
 ## Options ##
 
-widget_name    (string) 
-    the name of the widget
-time_interval  (string)
-    a number from one to 60 to minumize minute selection
-params         (array)
-    an array of form request data
-default_date   (string)
-    the default date for the date picker in YYYY-mm-dd 
-default_time   (string) 
-    the default time for the time picker in hh:ii AA
-time_start_stop     (array)
-    an array with two keys:
-        start  (string)
-            the start time of the time picker in HH.MM
-        stop   (string)
-            the stop time of the time picker in HH.MM
-time_image     (string)
-    a path to an image to display as the time picker button
+  * widget_name    (string) 
+        the name of the widget
+  * time_interval  (string)
+        a number from one to 60 to minumize minute selection
+  * params         (array)
+        an array of form request data
+  * default_date   (string)
+        the default date for the date picker in YYYY-mm-dd 
+  * default_time   (string) 
+        the default time for the time picker in hh:ii AA
+  * time_start_stop     (array)
+        an array with two keys:
+          * start  (string)
+                the start time of the time picker in HH.MM
+          * stop   (string)
+                the stop time of the time picker in HH.MM
+  * time_image     (string)
+        a path to an image to display as the time picker button
        
  
