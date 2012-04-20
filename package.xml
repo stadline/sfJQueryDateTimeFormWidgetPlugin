@@ -3,16 +3,16 @@
   <name>sfJQueryDateTimeFormWidgetPlugin</name>
   <channel>pear.symfony-project.com</channel>
   <summary>A plugin used to implement a jquery date and time picker widget within the forms</summary>
-  <description>A plugin used to implement a jquery date and time picker widget within the forms</description>
+  <description>A plugin used to implement a jquery date and time picker widget within the forms. Plugin comes included with assets and a validator</description>
   <lead>
     <name>Joseph M. Persie</name>
     <user>zmijevik</user>
     <email>persie.joseph@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2012-04-15</date>
+  <date>2012-04-20</date>
   <version>
-    <release>1.0.0</release>
+    <release>1.1.0</release>
     <api>1.4.0</api>
   </version>
   <stability>
@@ -31,6 +31,17 @@
       <dir name="lib">
         <dir name="widget">
           <file role="data" name="sfJQueryDateTimeWidget.class.php" />
+        </dir>
+        <dir name="validator">
+          <file role="data" name="sfJQueryDateTimeValidator.class.php" />
+        </dir>
+      </dir>
+      <dir name="web">
+        <dir name="css">
+          <file role="data" name="timePicker.css" />
+        </dir>
+        <dir name="js">
+          <file role="data" name="jquery.timePicker.js" />
         </dir>
       </dir>
     </dir>
@@ -55,9 +66,9 @@
   <phprelease></phprelease>
   <changelog>
     <release>
-      <date>2012-04-15</date>
+      <date>2012-04-20</date>
       <version>
-        <release>1.0.0</release>
+        <release>1.1.0</release>
         <api>1.4.0</api>
       </version>
       <stability>

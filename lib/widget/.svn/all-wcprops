@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/!svn/ver/33402/plugins/sfSelectTimeInputJQueryTimePickerPlugin/lib/widget
+V 67
+/!svn/ver/33408/plugins/sfJQueryDateTimeFormWidgetPlugin/lib/widget
 END
-sfWidgetFormSelectTimeInputJQueryTimePicker.class.php
+sfJQueryDateTimeWidget.class.php
 K 25
 svn:wc:ra_dav:version-url
-V 128
-/!svn/ver/33402/plugins/sfSelectTimeInputJQueryTimePickerPlugin/lib/widget/sfWidgetFormSelectTimeInputJQueryTimePicker.class.php
+V 100
+/!svn/ver/33408/plugins/sfJQueryDateTimeFormWidgetPlugin/lib/widget/sfJQueryDateTimeWidget.class.php
 END

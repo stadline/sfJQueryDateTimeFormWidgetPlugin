@@ -1,13 +1,14 @@
-#sfSelectTimeInputJQueryTimePickerPlugin#
+#sfJQueryDateTimePickerPlugin#
 
 A plugin using juqery TimePicker library to provide a dropdown of time based on specification of intervals and start and stop times.
-Feel free to contact me with any questions.
+
+The most recent version of this plugin includes a validator class which can be used to bind value based on a datetime format. 
+
+The version of the plugin also comes with javascript and css assets for the time picker.
 
 ## Installation ##
 
   * Install jQuery (http://www.jquery.com) somewhere under your web folder (preferably under web/js).
-
-  * Install jQuery timePicker (http://github.com/perifer/timePicker) somewhere under your web folder (preferably under web/js).
 
   * Install jQuery-UI (http://www.jqueryui.com) somewhere under your web folder (preferably under web/js).
 
@@ -15,7 +16,13 @@ Feel free to contact me with any questions.
 
   * Add the jQuery, timePicker, jQuery-UI and Datejs JavaScript files to the javascripts list in your application's config/view.yml file.
   
-* Add any CSS files you want to use for timePicker and datePicker, and add them to the stylesheets list in view.yml.
+  * Add any CSS files you want to use for timePicker and datePicker, and add them to the stylesheets list in view.yml.
+
+        [php]
+        stylesheets:    [ ... , /sfJQueryDateTimeFormWidgetPlugin/css/timePicker.css, ... ]
+
+        javascripts:    [ ... , /sfJQueryDateTimeFormWidgetPlugin/js/jquery.timePicker.js, ... ]
+
 
   * Install the plugin.
       Using symfony command line:
@@ -36,6 +43,9 @@ Feel free to contact me with any questions.
           }
         }
 
+  * Publish the Assets.
+      Using symfony command line:
+          ./symfony plugin:publish-assets
 
 
 ## How to use ##
@@ -43,44 +53,25 @@ Feel free to contact me with any questions.
   * Edit a form, for example lib/form/doctrine/MyForm.class.php.  To use the date component, do something like this:
 
         [php]   
-        $fromOptions = array(
-                             'widget_name'=>'from',
-                             'params'=>$params,
-                             'default_date'=>'2008-01-01',
-                             'default_time'=>'12:00 AM'
-                            );
+        $params = $this->getOption('params');
 
-        $untilOptions = array(
-                              'widget_name'=>'until',
-                              'params'=>$params,
-                              'default_date'=>date('Y-m-d'),
-                              'default_time'=>date('h:i A')
-                             );
+        $options = array(
+                         'widget_name'=>'time',
+                         'params'=>$params,
+                         'default_date'=>date('Y-m-d'),
+                         'default_time'=>date('h:i A')
+                        );
 
-        $this->setWidgets(array(
-            'staff'      => new sfWidgetFormDoctrineChoice(array('model' => 'Staff', 'add_empty' => false)),
-            'from'     => new sfJQueryDateTimeWidget($fromOptions),
-            'until'    => new sfJQueryDateTimeWidget($untilOptions),
-        ));
+        $this->setWidget('time',new sfJQueryDateTimeWidget($options));
+        $this->setValidator('time', new sfJQueryDateTimeValidator(array('widget_name'=>'time')));
 
-  * Edit an action, for example apps/frontend/modules/timequery/actions/actions.class.php and add and implement the following function to perform date time queries:
-  
-        [php]
-        private function convertParamToDatetime($time) {
-            $time = DateTime::createFromFormat('Y-m-d h:i A',$time);
-
-            if($time instanceof DateTime)
-                return $time->format('Y-m-d H:i:s');
-            else
-                return null;
-        }
 
   * Clear your cache.
         ./symfony cc
 
   * Test your form.
 
-## Options ##
+## Widget Options ##
 
   * widget_name    (string) 
         the name of the widget
@@ -101,4 +92,11 @@ Feel free to contact me with any questions.
   * time_image     (string)
         a path to an image to display as the time picker button
        
- 
+## Validator Options ##
+
+   * widget_name (string): The name of the widget (to retrieve specific input value)
+   * date_format (string): The format to use when submitting a date with time (default to Y-m-d h:i A)
+   * with_time (string): true if the validator must return a time, false otherwise
+   * date_output (string): The format to use when returning a date (default to Y-m-d)
+   * datetime_output (string): The format to use when returning a date with time (default to Y-m-d H:i:s)
+

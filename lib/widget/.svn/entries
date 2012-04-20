@@ -1,14 +1,14 @@
 10
 
 dir
-33402
-http://svn.symfony-project.com/plugins/sfSelectTimeInputJQueryTimePickerPlugin/lib/widget
+33408
+http://svn.symfony-project.com/plugins/sfJQueryDateTimeFormWidgetPlugin/lib/widget
 http://svn.symfony-project.com
 
 
 
-2012-04-12T13:05:10.471613Z
-33402
+2012-04-15T06:31:38.922558Z
+33408
 zmijevik
 
 
@@ -26,16 +26,16 @@ zmijevik
 
 ee427ae8-e902-0410-961c-c3ed070cd9f9
 
-sfWidgetFormSelectTimeInputJQueryTimePicker.class.php
+sfJQueryDateTimeWidget.class.php
 file
 
 
 
 
-2012-04-12T19:42:57.361923Z
-f413b6bdba101d87b8cb809e22e3c154
-2012-04-12T13:05:10.471613Z
-33402
+2012-04-20T20:39:19.393142Z
+497bc8f96a4137b895339f102012514c
+2012-04-15T06:31:38.922558Z
+33408
 zmijevik
 
 
@@ -58,5 +58,5 @@ zmijevik
 
 
 
-2330
+5567
 
