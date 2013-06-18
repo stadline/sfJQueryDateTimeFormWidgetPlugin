@@ -11,6 +11,7 @@ class sfJQueryDateTimeValidator extends sfValidatorBase
 {
   private $value;
   private $format;
+  
   /**
    * Configures the current validator.
    *
@@ -54,7 +55,8 @@ class sfJQueryDateTimeValidator extends sfValidatorBase
       return $date->format($this->format);
   }
 
-  private function _retrieveFormParams() {
+  private function _retrieveFormParams()
+  {
       if(!$this->getOption('widget_name')) {
           throw new sfValidatorError($this, 'missing_widget_name',array());
       }
@@ -64,7 +66,8 @@ class sfJQueryDateTimeValidator extends sfValidatorBase
       $this->value = $param; 
   }
 
-  private function _initializeFormatting() {
+  private function _initializeFormatting()
+  {
       if($this->getOption('with_time')) {
           $this->format = $this->getOption('datetime_output');
       }
@@ -75,6 +78,6 @@ class sfJQueryDateTimeValidator extends sfValidatorBase
 
   protected function isEmpty($value = null)
   {
-    return empty($this->value);
+      return empty($this->value);
   }
 }
