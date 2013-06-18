@@ -8,15 +8,15 @@ class sfJQueryDateTimeWidget extends sfWidgetForm
         $attributes['maxlength']    = '8';
 
         $this->addOption('widget_name');
-        $this->addOption('params',false);
-        $this->addOption('default_date',false);
-        $this->addOption('default_time',false);
+        $this->addOption('params', false);
+        $this->addOption('default_date', false);
+        $this->addOption('default_time', false);
         $this->addOption('date_widget', new sfWidgetFormInput());
         $this->addOption('time_widget', new sfWidgetFormInput(array(),$attributes));
         $this->addOption('date_time', new sfWidgetFormInputHidden());
         $this->addOption('time_image', false);
-        $this->addOption('time_start_stop', false);
-        $this->addOption('time_interval', false);
+        $this->addOption('time_start_stop', array());
+        $this->addOption('time_interval', 15);
 
         parent::configure($options, $attributes);
     }
@@ -35,11 +35,9 @@ class sfJQueryDateTimeWidget extends sfWidgetForm
         $default = $this->getDefaults();
 
         if ($timeWidget instanceof sfWidgetFormInput) {
-            if (empty($interval)) $interval = '1';
-
             $nameDate = $name . 'Date';
             $nameTime = $name . 'Time';
-            $nameHide = $name;                    
+            $nameHide = $name;
 
             $buttonImageCode = '';
             if ($imageTime !== false) {
@@ -57,18 +55,16 @@ class sfJQueryDateTimeWidget extends sfWidgetForm
             if ((!isset($attributesTime['readonly'])) && (!isset($attributes['disabled']))) {
                $code .= sprintf(<<<EOF
 <script type="text/javascript">
-$('#%s').datepicker({ dateFormat:'yy-mm-dd', showOn:'button', constrainInput:false%s });
-$('#%s').change(function() {
-    var dt = Date.parse($(this).val());
-    $(this).val((dt != null) ? dt.toString('yyyy-MM-dd') : '');
-});
-
 $(function(){
-
+    $('#%s').datepicker({ dateFormat:'yy-mm-dd', showOn:'button', constrainInput:false%s });
+    $('#%s').change(function() {
+        var dt = Date.parse($(this).val());
+        $(this).val((dt != null) ? dt.toString('yyyy-MM-dd') : '');
+    });
+    
     $(":input").change(function(){
         $("[name=%s]").val($("#%s").val() + ' ' + $("#%s").val());
     });
-
 });
 
 </script>
@@ -83,45 +79,30 @@ EOF
                 );
             }
             
-            if($start_stop) {
-                $start_stop = $timeOptions['start_stop'];
-                if (!isset($start_stop['start'])) $start_stop['start'] = "00.00";
-                $last_interval = 60 - $interval;
-                if (!isset($start_stop['stop'])) $start_stop['stop'] = "23.$last_interval" ;
-                
-                $code .= $timeWidget->render($nameTime, $default['both'], $attributes, $errors);
-                
-                $code .= sprintf(<<<EOF
+            if (!isset($start_stop['start'])) $start_stop['start'] = "00:00";
+            if (!isset($start_stop['stop'])) $start_stop['stop'] = "23:" . (60 - $interval) ;
+            
+            $code .= $timeWidget->render($nameTime, $default['time'], $attributes, $errors);
+            
+            $code .= sprintf(<<<EOF
 <script type="text/javascript">
-$("#%s").timePicker({
-    startTime: "%s", // Using string. Can take string or Date object.
-    endTime:   "%s", // Using Date object here.
-    show24Hours: false,
-    separator: '.',
-    step: %s
+
+$(function(){
+    $("#%s").timePicker({
+        startTime: "%s", // Using string. Can take string or Date object.
+        endTime:   "%s", // Using Date object here.
+        show24Hours: true,
+        step: %s
+    });
 });
 </script>
 EOF
-                ,
-                $idTime,
-                $start_stop['start'],
-                $start_stop['stop'],
-                $interval
-                );
-
-            } 
-            else {
-                $code .= $timeWidget->render($nameTime, $default['time'], $attributes, $errors);
-                $code .= sprintf(<<<EOF
-<script type="text/javascript">
-$("#%s").timePicker({step: %d,show24Hours: false});
-</script>
-EOF
-                ,
-                $idTime,
-                $interval
-                );
-            }
+            ,
+            $idTime,
+            $start_stop['start'],
+            $start_stop['stop'],
+            $interval
+            );
         }
         
         return $code;
@@ -148,5 +129,19 @@ EOF
         $default['both'] = implode(" ",$default);
         
         return $default;
+    }
+ 
+    public function getJavascripts()
+    {
+        return array(
+            '/sfJQueryDateTimeFormWidgetPlugin/timePicker/jquery.timePicker.js',
+        );
+    }
+ 
+    public function getStylesheets()
+    {
+        return array(
+            '/sfJQueryDateTimeFormWidgetPlugin/timePicker/timePicker.css' => 'screen',
+        );
     }
 }
