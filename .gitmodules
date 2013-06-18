@@ -1,0 +1,6 @@
+[submodule "web/Datejs"]
+	path = web/Datejs
+	url = https://github.com/datejs/Datejs.git
+[submodule "web/timePicker"]
+	path = web/timePicker
+	url = https://github.com/perifer/timePicker.git
